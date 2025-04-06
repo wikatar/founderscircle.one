@@ -22,19 +22,19 @@ const ApplicationForm = () => {
     setError('');
 
     try {
-      // Send the form data to our Netlify function
-      const response = await fetch('/.netlify/functions/submit-form', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(formData),
+      // For testing purposes, we'll redirect to the form handler
+      // In a production environment, you would use a serverless function or API endpoint
+      
+      // Create a URL with the form data as query parameters
+      const queryParams = new URLSearchParams();
+      Object.entries(formData).forEach(([key, value]) => {
+        if (value) queryParams.append(key, value);
       });
-
-      if (!response.ok) {
-        throw new Error('Failed to submit form');
-      }
-
+      
+      // Redirect to the form handler
+      window.location.href = `/form-handler.html?${queryParams.toString()}`;
+      
+      // Note: The code below won't execute due to the redirect
       // Store the submission in localStorage (for demo purposes)
       const submissions = JSON.parse(localStorage.getItem('applications') || '[]');
       submissions.push({
@@ -46,6 +46,7 @@ const ApplicationForm = () => {
       // Redirect to thank you page
       navigate('/thank-you');
     } catch (err) {
+      console.error('Error submitting form:', err);
       setError('There was an error submitting your application. Please try again.');
       setIsSubmitting(false);
     }

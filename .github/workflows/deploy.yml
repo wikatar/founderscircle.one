@@ -6,34 +6,71 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: write
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
 
 jobs:
-  build-and-deploy:
+  build:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout repository
+      - name: Checkout
         uses: actions/checkout@v4
-
-      - name: Set up Node
+      
+      - name: Setup Node
         uses: actions/setup-node@v4
         with:
-          node-version: 18
+          node-version: '20'
           cache: 'npm'
-
+      
       - name: Install dependencies
         run: npm ci
-
+      
       - name: Build
         run: npm run build
-
-      - name: Copy CNAME
-        run: cp public/CNAME dist/CNAME
-
-      - name: Deploy to GitHub Pages
-        uses: JamesIves/github-pages-deploy-action@v4
+      
+      - name: Setup Pages
+        uses: actions/configure-pages@v4
+      
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
         with:
-          folder: dist
-          branch: gh-pages
-          clean: true
-          token: ${{ secrets.GITHUB_TOKEN }} 
+          path: './dist'
+
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
+
+  handle-form:
+    runs-on: ubuntu-latest
+    if: github.event_name == 'workflow_dispatch'
+    steps:
+      - name: Send Email
+        uses: dawidd6/action-send-mail@v3
+        with:
+          server_address: smtp.gmail.com
+          server_port: 465
+          username: ${{ secrets.EMAIL_USER }}
+          password: ${{ secrets.EMAIL_APP_PASSWORD }}
+          subject: New Application from FoundersCircle.one
+          to: ${{ secrets.NOTIFICATION_EMAIL }}
+          from: ${{ secrets.EMAIL_USER }}
+          html_body: |
+            <h2>New Application Received</h2>
+            <p><strong>Name:</strong> ${{ github.event.inputs.name }}</p>
+            <p><strong>Email:</strong> ${{ github.event.inputs.email }}</p>
+            <p><strong>Company:</strong> ${{ github.event.inputs.company }}</p>
+            <p><strong>Role:</strong> ${{ github.event.inputs.role }}</p>
+            <p><strong>Stage:</strong> ${{ github.event.inputs.stage }}</p>
+            <p><strong>Message:</strong> ${{ github.event.inputs.message }}</p> 
