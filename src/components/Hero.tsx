@@ -29,7 +29,7 @@ const Hero = () => {
           transition={{ duration: 0.8 }}
           className="text-5xl md:text-7xl font-bold mb-6 text-gold text-shadow"
         >
-          The Founder's Audit
+          The Founder's Circle
         </motion.h1>
         
         <motion.p 

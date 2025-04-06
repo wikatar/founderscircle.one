@@ -15,7 +15,7 @@ exports.handler = async function(event, context) {
       service: 'gmail',
       auth: {
         user: process.env.EMAIL_USER,
-        pass: process.env.EMAIL_PASSWORD
+        pass: process.env.EMAIL_APP_PASSWORD // Using app password instead of regular password
       }
     });
     
@@ -30,7 +30,7 @@ exports.handler = async function(event, context) {
         <p><strong>Email:</strong> ${formData.email}</p>
         <p><strong>Company:</strong> ${formData.company}</p>
         <p><strong>Role:</strong> ${formData.role}</p>
-        <p><strong>LinkedIn:</strong> ${formData.linkedin}</p>
+        <p><strong>Stage:</strong> ${formData.stage}</p>
         <p><strong>Message:</strong> ${formData.message}</p>
       `
     };
