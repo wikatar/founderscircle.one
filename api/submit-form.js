@@ -23,7 +23,7 @@ export default async function handler(req, res) {
       method: 'POST',
       headers: {
         'Accept': 'application/vnd.github.v3+json',
-        'Authorization': `Bearer ${process.env.GITHUB_TOKEN}`,
+        'Authorization': `Bearer ${process.env.FORM_TOKEN}`,
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
