@@ -23,17 +23,12 @@ const ApplicationForm = () => {
     setError('');
 
     try {
-      const response = await fetch('https://api.github.com/repos/wikatar/FoundersCircle.one/dispatches', {
+      const response = await fetch('/.netlify/functions/submit-form', {
         method: 'POST',
         headers: {
-          'Accept': 'application/vnd.github.v3+json',
-          'Authorization': `token ${process.env.FORM_TOKEN}`,
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({
-          event_type: 'form_submission',
-          client_payload: formData
-        })
+        body: JSON.stringify(formData)
       });
 
       if (!response.ok) {
