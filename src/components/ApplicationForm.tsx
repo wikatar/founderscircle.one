@@ -28,7 +28,7 @@ const ApplicationForm = () => {
         method: 'POST',
         headers: {
           'Accept': 'application/vnd.github.v3+json',
-          'Authorization': `token ${process.env.VITE_GITHUB_TOKEN}`,
+          'Authorization': `token ${import.meta.env.VITE_GITHUB_TOKEN}`,
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
