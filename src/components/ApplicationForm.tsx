@@ -10,6 +10,7 @@ const ApplicationForm = () => {
     company: '',
     role: '',
     stage: '',
+    revenue: '',
     message: ''
   });
 
@@ -159,26 +160,50 @@ const ApplicationForm = () => {
             </div>
           </div>
 
-          <div className="mb-6">
-            <label htmlFor="stage" className="text-text-light font-medium mb-2 block">
-              Company Stage
-            </label>
-            <select
-              id="stage"
-              name="stage"
-              value={formData.stage}
-              onChange={handleChange}
-              required
-              className="w-full"
-              disabled={isSubmitting}
-            >
-              <option value="">Select company stage</option>
-              <option value="idea">Idea Stage</option>
-              <option value="mvp">MVP</option>
-              <option value="early">Early Traction</option>
-              <option value="growth">Growth</option>
-              <option value="scale">Scale</option>
-            </select>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+            <div>
+              <label htmlFor="stage" className="text-text-light font-medium mb-2 block">
+                Company Stage
+              </label>
+              <select
+                id="stage"
+                name="stage"
+                value={formData.stage}
+                onChange={handleChange}
+                required
+                className="w-full"
+                disabled={isSubmitting}
+              >
+                <option value="">Select company stage</option>
+                <option value="idea">Idea Stage</option>
+                <option value="mvp">MVP</option>
+                <option value="early">Early Traction</option>
+                <option value="growth">Growth</option>
+                <option value="scale">Scale</option>
+              </select>
+            </div>
+            <div>
+              <label htmlFor="revenue" className="text-text-light font-medium mb-2 block">
+                Yearly Revenue (USD)
+              </label>
+              <select
+                id="revenue"
+                name="revenue"
+                value={formData.revenue}
+                onChange={handleChange}
+                required
+                className="w-full"
+                disabled={isSubmitting}
+              >
+                <option value="">Select revenue range</option>
+                <option value="0-50k">$0 - $50,000</option>
+                <option value="50k-200k">$50,000 - $200,000</option>
+                <option value="200k-500k">$200,000 - $500,000</option>
+                <option value="500k-1m">$500,000 - $1,000,000</option>
+                <option value="1m-5m">$1,000,000 - $5,000,000</option>
+                <option value="5m+">$5,000,000+</option>
+              </select>
+            </div>
           </div>
 
           <div className="mb-6">
