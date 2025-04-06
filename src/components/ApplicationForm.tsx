@@ -23,7 +23,8 @@ const ApplicationForm = () => {
     setError('');
 
     try {
-      const response = await fetch('/.netlify/functions/submit-form', {
+      // Use a serverless function to handle the GitHub API call
+      const response = await fetch('/api/submit-form', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

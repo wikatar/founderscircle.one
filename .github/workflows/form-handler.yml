@@ -13,13 +13,13 @@ jobs:
         with:
           server_address: smtp.gmail.com
           server_port: 465
-          username: ${{ secrets.EMAIL_USERNAME }}
+          username: ${{ secrets.EMAIL_USER }}
           password: ${{ secrets.EMAIL_APP_PASSWORD }}
-          subject: New Application Submission
+          subject: New Application from FoundersCircle.one
           to: ${{ secrets.NOTIFICATION_EMAIL }}
-          from: ${{ secrets.EMAIL_USERNAME }}
+          from: ${{ secrets.EMAIL_USER }}
           html_body: |
-            <h2>New Application Submission</h2>
+            <h2>New Application Received</h2>
             <p><strong>Name:</strong> ${{ github.event.client_payload.name }}</p>
             <p><strong>Email:</strong> ${{ github.event.client_payload.email }}</p>
             <p><strong>Company:</strong> ${{ github.event.client_payload.company }}</p>
