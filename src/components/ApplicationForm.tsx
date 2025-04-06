@@ -1,7 +1,9 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
+import { useNavigate } from 'react-router-dom';
 
 const ApplicationForm = () => {
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -11,10 +13,33 @@ const ApplicationForm = () => {
     message: ''
   });
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [error, setError] = useState('');
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // Handle form submission
-    console.log(formData);
+    setIsSubmitting(true);
+    setError('');
+
+    try {
+      // Here you would typically send the data to your backend
+      // For now, we'll simulate an API call
+      await new Promise(resolve => setTimeout(resolve, 1000));
+      
+      // Store the submission in localStorage (for demo purposes)
+      const submissions = JSON.parse(localStorage.getItem('applications') || '[]');
+      submissions.push({
+        ...formData,
+        submittedAt: new Date().toISOString()
+      });
+      localStorage.setItem('applications', JSON.stringify(submissions));
+
+      // Redirect to thank you page
+      navigate('/thank-you');
+    } catch (err) {
+      setError('There was an error submitting your application. Please try again.');
+      setIsSubmitting(false);
+    }
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
@@ -48,6 +73,12 @@ const ApplicationForm = () => {
           onSubmit={handleSubmit}
           className="max-w-2xl mx-auto card"
         >
+          {error && (
+            <div className="mb-6 p-4 bg-red-500/10 border border-red-500/20 rounded-lg text-red-500">
+              {error}
+            </div>
+          )}
+
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
             <div>
               <label htmlFor="name" className="text-text-light font-medium mb-2 block">
@@ -62,6 +93,7 @@ const ApplicationForm = () => {
                 required
                 className="w-full"
                 placeholder="Enter your full name"
+                disabled={isSubmitting}
               />
             </div>
             <div>
@@ -77,6 +109,7 @@ const ApplicationForm = () => {
                 required
                 className="w-full"
                 placeholder="Enter your email"
+                disabled={isSubmitting}
               />
             </div>
           </div>
@@ -95,6 +128,7 @@ const ApplicationForm = () => {
                 required
                 className="w-full"
                 placeholder="Enter your company name"
+                disabled={isSubmitting}
               />
             </div>
             <div>
@@ -110,6 +144,7 @@ const ApplicationForm = () => {
                 required
                 className="w-full"
                 placeholder="Enter your role"
+                disabled={isSubmitting}
               />
             </div>
           </div>
@@ -125,6 +160,7 @@ const ApplicationForm = () => {
               onChange={handleChange}
               required
               className="w-full"
+              disabled={isSubmitting}
             >
               <option value="">Select company stage</option>
               <option value="idea">Idea Stage</option>
@@ -148,12 +184,17 @@ const ApplicationForm = () => {
               rows={4}
               className="w-full"
               placeholder="Tell us about your goals and what you hope to achieve"
+              disabled={isSubmitting}
             />
           </div>
 
           <div className="text-center">
-            <button type="submit" className="btn-primary">
-              Submit Application
+            <button 
+              type="submit" 
+              className="btn-primary"
+              disabled={isSubmitting}
+            >
+              {isSubmitting ? 'Submitting...' : 'Submit Application'}
             </button>
           </div>
         </motion.form>
