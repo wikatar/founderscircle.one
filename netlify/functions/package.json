@@ -1,9 +1,0 @@
-{
-  "name": "founderscircle-functions",
-  "version": "1.0.0",
-  "description": "Netlify functions for FoundersCircle.one",
-  "main": "submit-form.js",
-  "dependencies": {
-    "nodemailer": "^6.9.1"
-  }
-} 
