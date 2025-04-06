@@ -7,24 +7,27 @@ export default {
   theme: {
     extend: {
       colors: {
-        'bg-dark': '#1A2525',      // Deep midnight teal-blue
-        'bg-darker': '#2B1A1F',    // Dark muted burgundy
-        'bg-lighter': '#3A3538',   // Charcoal with reddish-blue tint
-        'gold': '#FFD700',         // Gold accent
-        'text-gray': '#A3A8B0',    // Cool steely gray
-        'border-gray': '#3C2F36',  // Dark reddish-blue border
-        'shadow-black': '#1A0F13', // Very dark reddish-black
-        'dark': '#080808',
-        'darker': '#030303',
-        'batman': '#0F0F0F',
-        'accent': '#C6A962',
-        'accent-hover': '#D4B872',
-        'secondary': '#4A235A',
-        'light-gray': '#1A1A1A',
-        'text-light': '#F8F8F8',
-        'text-dark': '#080808',
-        'text-muted': '#9CA3AF',
-        'border-dark': 'rgba(198, 169, 98, 0.2)',
+        // === NEW PALETTE ===
+        'bg-dark': '#102A26',         // Dark Emerald background
+        'bg-darker': '#0E1F1B',       // Deeper version for contrast
+        'bg-lighter': '#1C3A34',      // Slightly lighter emerald variant
+        'gold': '#F5EBDD',            // Warm Beige (used for backgrounds or soft text)
+        'text-gray': '#E7D7C6',       // Muted beige for secondary text
+        'border-gray': '#254C44',     // Emerald-tinted border
+        'shadow-black': '#0A1B18',    // Very dark emerald for shadow
+        'dark': '#0A1F1A',            // Deep rich greenish-black
+        'darker': '#061411',          // Near black with green tone
+        'batman': '#05110F',          // Deep emerald noir
+        'accent': '#F87171',          // Coral main accent
+        'accent-hover': '#EF4444',    // Hover coral (deeper red tone)
+        'secondary': '#F5EBDD',       // Reuse beige for secondary areas
+        'light-gray': '#19332D',      // Slightly muted background
+        'text-light': '#F5EBDD',      // Warm beige for light text
+        'text-dark': '#102A26',       // Base text darkened
+        'text-muted': '#C7B9AC',      // Muted warm beige
+        'border-dark': 'rgba(245, 235, 221, 0.2)', // Subtle beige border
+
+        // You can add one more if you want a pop-color or call-to-action contrast later
       },
       fontFamily: {
         'montserrat': ['Montserrat', 'sans-serif'],
@@ -37,7 +40,7 @@ export default {
         'h2-mobile': '24px',
       },
       boxShadow: {
-        'accent': '0 0 15px rgba(198, 169, 98, 0.15)',
+        'accent': '0 0 15px rgba(248, 113, 113, 0.15)', // coral glow
       },
       animation: {
         'fade-in': 'fadeIn 0.5s ease-in',
@@ -53,4 +56,4 @@ export default {
   plugins: [
     require('@tailwindcss/forms'),
   ],
-} 
+}
