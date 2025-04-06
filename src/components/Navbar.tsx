@@ -8,74 +8,73 @@ interface NavbarProps {
 const Navbar = ({ isScrolled }: NavbarProps) => {
   const [isOpen, setIsOpen] = useState(false);
 
-  const navLinks = [
+  const navigation = [
     { name: 'Home', href: '#' },
-    { name: 'Why Apply', href: '#why-it-works' },
+    { name: 'Why Us', href: '#why-us' },
     { name: 'Process', href: '#process' },
     { name: 'Apply', href: '#apply' },
   ];
 
   return (
-    <nav
-      className={`fixed w-full z-50 transition-all duration-300 ${
-        isScrolled ? 'bg-batman shadow-lg' : 'bg-transparent'
-      }`}
-    >
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-16">
+    <nav className={`fixed w-full z-50 transition-all duration-300 ${
+      isScrolled ? 'bg-bg-darker/95 backdrop-blur-sm shadow-lg shadow-shadow-black/20' : 'bg-transparent'
+    }`}>
+      <div className="container mx-auto px-4">
+        <div className="flex items-center justify-between h-20">
+          {/* Logo */}
           <div className="flex-shrink-0">
-            <a href="#" className="text-2xl font-montserrat font-bold text-accent">
-              Founder's Audit
-            </a>
+            <span className="text-2xl font-montserrat font-bold text-gold">FC</span>
           </div>
 
           {/* Desktop Navigation */}
-          <div className="hidden md:block">
-            <div className="ml-10 flex items-baseline space-x-8">
-              {navLinks.map((link) => (
-                <a
-                  key={link.name}
-                  href={link.href}
-                  className="text-text-light hover:text-accent transition-colors duration-200 px-3 py-2 rounded-md text-sm font-semibold"
-                >
-                  {link.name}
-                </a>
-              ))}
-            </div>
+          <div className="hidden md:flex items-center space-x-8">
+            {navigation.map((item) => (
+              <a
+                key={item.name}
+                href={item.href}
+                className="text-text-gray hover:text-gold transition-colors duration-300 font-montserrat"
+              >
+                {item.name}
+              </a>
+            ))}
+            <button className="btn-primary">
+              Apply Now
+            </button>
           </div>
 
           {/* Mobile menu button */}
           <div className="md:hidden">
             <button
               onClick={() => setIsOpen(!isOpen)}
-              className="inline-flex items-center justify-center p-2 rounded-md text-text-light hover:text-accent focus:outline-none"
+              className="text-text-gray hover:text-gold transition-colors duration-300"
             >
               {isOpen ? (
-                <XMarkIcon className="block h-6 w-6" />
+                <XMarkIcon className="h-6 w-6" />
               ) : (
-                <Bars3Icon className="block h-6 w-6" />
+                <Bars3Icon className="h-6 w-6" />
               )}
             </button>
           </div>
         </div>
+      </div>
 
-        {/* Mobile Navigation */}
-        {isOpen && (
-          <div className="md:hidden">
-            <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
-              {navLinks.map((link) => (
-                <a
-                  key={link.name}
-                  href={link.href}
-                  className="text-text-light hover:text-accent block px-3 py-2 rounded-md text-base font-medium"
-                  onClick={() => setIsOpen(false)}
-                >
-                  {link.name}
-                </a>
-              ))}
-            </div>
-          </div>
-        )}
+      {/* Mobile Navigation */}
+      <div className={`md:hidden ${isOpen ? 'block' : 'hidden'}`}>
+        <div className="px-4 pt-2 pb-4 space-y-2 bg-bg-darker/95 backdrop-blur-sm border-t border-border-gray/20">
+          {navigation.map((item) => (
+            <a
+              key={item.name}
+              href={item.href}
+              className="block px-3 py-2 text-text-gray hover:text-gold transition-colors duration-300 font-montserrat"
+              onClick={() => setIsOpen(false)}
+            >
+              {item.name}
+            </a>
+          ))}
+          <button className="w-full btn-primary mt-4">
+            Apply Now
+          </button>
+        </div>
       </div>
     </nav>
   );

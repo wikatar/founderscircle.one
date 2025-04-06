@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@700;800;900&family=Open+Sans:wght@400;500;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Open+Sans:wght@400;500;600&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -6,25 +6,33 @@
 
 @layer base {
   html {
-    scroll-behavior: smooth;
+    @apply bg-bg-dark text-white;
+    font-family: 'Open Sans', sans-serif;
   }
-  
+
   body {
-    @apply font-open-sans text-base text-text-light bg-darker;
+    @apply bg-gradient-to-b from-bg-darker via-bg-dark to-bg-darker min-h-screen;
   }
 
   h1, h2, h3, h4, h5, h6 {
-    @apply font-montserrat font-bold text-text-light tracking-wide;
+    @apply font-montserrat font-bold text-gold;
   }
 }
 
 @layer components {
   .btn-primary {
-    @apply bg-accent hover:bg-accent-hover text-text-dark font-semibold py-3 px-6 rounded-lg transition-all duration-300 transform hover:scale-105 hover:shadow-accent;
+    @apply bg-bg-lighter text-gold border border-gold/20 px-6 py-3 rounded-lg
+           hover:bg-gold/10 hover:border-gold transition-all duration-300
+           font-montserrat font-semibold;
+  }
+
+  .card {
+    @apply bg-bg-darker border border-border-gray/20 rounded-xl p-6
+           hover:border-gold/30 transition-all duration-300;
   }
 
   .section {
-    @apply py-16 px-4 md:px-8 lg:px-16 relative;
+    @apply py-20 px-4 md:px-8;
   }
 
   .section::before {
@@ -35,35 +43,31 @@
     @apply mx-auto max-w-7xl relative z-10;
   }
 
-  .card {
-    @apply bg-dark rounded-lg p-6 border border-border-dark shadow-lg hover:shadow-accent transition-all duration-300;
-  }
-
   .text-gradient {
     @apply bg-clip-text text-transparent bg-gradient-to-r from-accent to-accent-hover;
   }
 }
 
+@layer utilities {
+  .text-shadow {
+    text-shadow: 0 2px 4px rgba(26, 15, 19, 0.5);
+  }
+}
+
 /* Custom animations */
 @keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.5s ease-in;
 }
 
 @keyframes glowPulse {
   0% { box-shadow: 0 0 5px rgba(198, 169, 98, 0.2); }
   50% { box-shadow: 0 0 20px rgba(198, 169, 98, 0.4); }
   100% { box-shadow: 0 0 5px rgba(198, 169, 98, 0.2); }
-}
-
-.animate-fadeIn {
-  animation: fadeIn 0.6s ease-out forwards;
 }
 
 .animate-glow {
