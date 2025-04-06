@@ -3,19 +3,35 @@ const nodemailer = require('nodemailer');
 exports.handler = async function(event, context) {
   // Only allow POST requests
   if (event.httpMethod !== 'POST') {
-    return { statusCode: 405, body: 'Method Not Allowed' };
+    return { 
+      statusCode: 405, 
+      body: JSON.stringify({ error: 'Method Not Allowed' })
+    };
   }
 
   try {
     // Parse the form data
     const formData = JSON.parse(event.body);
     
+    // Validate required fields
+    const requiredFields = ['name', 'email', 'company', 'role', 'stage', 'revenue', 'message'];
+    const missingFields = requiredFields.filter(field => !formData[field]);
+    
+    if (missingFields.length > 0) {
+      return {
+        statusCode: 400,
+        body: JSON.stringify({ 
+          error: `Missing required fields: ${missingFields.join(', ')}` 
+        })
+      };
+    }
+
     // Create a transporter using environment variables
     const transporter = nodemailer.createTransport({
       service: 'gmail',
       auth: {
         user: process.env.EMAIL_USER,
-        pass: process.env.EMAIL_APP_PASSWORD // Using app password instead of regular password
+        pass: process.env.EMAIL_APP_PASSWORD
       }
     });
     
@@ -31,6 +47,7 @@ exports.handler = async function(event, context) {
         <p><strong>Company:</strong> ${formData.company}</p>
         <p><strong>Role:</strong> ${formData.role}</p>
         <p><strong>Stage:</strong> ${formData.stage}</p>
+        <p><strong>Revenue:</strong> ${formData.revenue}</p>
         <p><strong>Message:</strong> ${formData.message}</p>
       `
     };
@@ -41,13 +58,29 @@ exports.handler = async function(event, context) {
     // Return success response
     return {
       statusCode: 200,
-      body: JSON.stringify({ message: 'Application submitted successfully' })
+      headers: {
+        'Content-Type': 'application/json',
+        'Access-Control-Allow-Origin': '*',
+        'Access-Control-Allow-Headers': 'Content-Type',
+        'Access-Control-Allow-Methods': 'POST, OPTIONS'
+      },
+      body: JSON.stringify({ 
+        message: 'Application submitted successfully' 
+      })
     };
   } catch (error) {
     console.error('Error processing form submission:', error);
     return {
       statusCode: 500,
-      body: JSON.stringify({ message: 'Error processing your application' })
+      headers: {
+        'Content-Type': 'application/json',
+        'Access-Control-Allow-Origin': '*',
+        'Access-Control-Allow-Headers': 'Content-Type',
+        'Access-Control-Allow-Methods': 'POST, OPTIONS'
+      },
+      body: JSON.stringify({ 
+        error: 'Error processing your application' 
+      })
     };
   }
 }; 

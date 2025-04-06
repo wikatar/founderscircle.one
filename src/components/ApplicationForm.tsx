@@ -23,29 +23,25 @@ const ApplicationForm = () => {
     setError('');
 
     try {
-      // Send directly to GitHub repository dispatch API
-      const response = await fetch('https://api.github.com/repos/wikatar/FoundersCircle.one/dispatches', {
+      const response = await fetch('/.netlify/functions/submit-form', {
         method: 'POST',
         headers: {
-          'Accept': 'application/vnd.github.v3+json',
-          'Authorization': `token ${import.meta.env.VITE_GITHUB_TOKEN}`,
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({
-          event_type: 'form_submission',
-          client_payload: formData
-        })
+        body: JSON.stringify(formData)
       });
 
+      const data = await response.json();
+
       if (!response.ok) {
-        throw new Error('Failed to submit form');
+        throw new Error(data.error || 'Failed to submit form');
       }
 
       // Redirect to thank you page
       navigate('/thank-you');
     } catch (err) {
       console.error('Error submitting form:', err);
-      setError('There was an error submitting your application. Please try again.');
+      setError(err instanceof Error ? err.message : 'There was an error submitting your application. Please try again.');
       setIsSubmitting(false);
     }
   };
