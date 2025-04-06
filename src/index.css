@@ -6,7 +6,7 @@
 
 @layer base {
   html {
-    @apply bg-bg-dark text-white;
+    @apply bg-bg-dark text-text-light;
     font-family: 'Open Sans', sans-serif;
   }
 
@@ -15,20 +15,20 @@
   }
 
   h1, h2, h3, h4, h5, h6 {
-    @apply font-montserrat font-bold text-gold;
+    @apply font-montserrat font-bold text-accent;
   }
 }
 
 @layer components {
   .btn-primary {
-    @apply bg-bg-lighter text-gold border border-gold/20 px-6 py-3 rounded-lg
-           hover:bg-gold/10 hover:border-gold transition-all duration-300
+    @apply bg-accent text-text-light border border-accent/20 px-6 py-3 rounded-lg
+           hover:bg-accent-hover hover:border-accent transition-all duration-300
            font-montserrat font-semibold;
   }
 
   .card {
     @apply bg-bg-darker border border-border-gray/20 rounded-xl p-6
-           hover:border-gold/30 transition-all duration-300;
+           hover:border-accent/30 transition-all duration-300;
   }
 
   .section {
@@ -46,11 +46,32 @@
   .text-gradient {
     @apply bg-clip-text text-transparent bg-gradient-to-r from-accent to-accent-hover;
   }
+
+  /* Form Styles */
+  input[type="text"],
+  input[type="email"],
+  input[type="tel"],
+  textarea,
+  select {
+    @apply bg-bg-lighter border border-border-gray text-text-light rounded-lg px-4 py-2
+           focus:border-accent focus:ring-1 focus:ring-accent focus:outline-none
+           placeholder-text-muted;
+  }
+
+  label {
+    @apply text-text-light font-medium mb-2 block;
+  }
+
+  /* Numbered Steps */
+  .step-number {
+    @apply bg-accent text-text-light w-8 h-8 rounded-full flex items-center justify-center
+           font-bold text-lg mb-4 mx-auto;
+  }
 }
 
 @layer utilities {
   .text-shadow {
-    text-shadow: 0 2px 4px rgba(26, 15, 19, 0.5);
+    text-shadow: 0 2px 4px rgba(10, 27, 26, 0.5);
   }
 }
 
@@ -65,9 +86,9 @@
 }
 
 @keyframes glowPulse {
-  0% { box-shadow: 0 0 5px rgba(198, 169, 98, 0.2); }
-  50% { box-shadow: 0 0 20px rgba(198, 169, 98, 0.4); }
-  100% { box-shadow: 0 0 5px rgba(198, 169, 98, 0.2); }
+  0% { box-shadow: 0 0 5px rgba(248, 113, 113, 0.2); }
+  50% { box-shadow: 0 0 20px rgba(248, 113, 113, 0.4); }
+  100% { box-shadow: 0 0 5px rgba(248, 113, 113, 0.2); }
 }
 
 .animate-glow {
