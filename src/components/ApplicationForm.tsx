@@ -23,16 +23,23 @@ const ApplicationForm = () => {
     setError('');
 
     try {
-      // For testing purposes, we'll simulate a successful submission
-      console.log('Form data submitted:', formData);
-      
-      // Store the submission in localStorage (for demo purposes)
-      const submissions = JSON.parse(localStorage.getItem('applications') || '[]');
-      submissions.push({
-        ...formData,
-        submittedAt: new Date().toISOString()
+      // Send the form data to GitHub Actions workflow
+      const response = await fetch(`https://api.github.com/repos/${process.env.GITHUB_REPOSITORY || 'wikatar/founderscircle.one'}/actions/workflows/deploy.yml/dispatches`, {
+        method: 'POST',
+        headers: {
+          'Accept': 'application/vnd.github.v3+json',
+          'Authorization': `Bearer ${process.env.GITHUB_TOKEN || ''}`,
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          ref: 'main',
+          inputs: formData
+        }),
       });
-      localStorage.setItem('applications', JSON.stringify(submissions));
+
+      if (!response.ok) {
+        throw new Error('Failed to submit form');
+      }
 
       // Redirect to thank you page
       navigate('/thank-you');

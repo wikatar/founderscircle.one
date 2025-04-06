@@ -4,6 +4,35 @@ on:
   push:
     branches: [ main ]
   workflow_dispatch:
+    inputs:
+      name:
+        description: 'Applicant Name'
+        required: true
+        type: string
+      email:
+        description: 'Applicant Email'
+        required: true
+        type: string
+      company:
+        description: 'Company Name'
+        required: true
+        type: string
+      role:
+        description: 'Applicant Role'
+        required: true
+        type: string
+      stage:
+        description: 'Company Stage'
+        required: true
+        type: string
+      revenue:
+        description: 'Yearly Revenue'
+        required: true
+        type: string
+      message:
+        description: 'Application Message'
+        required: true
+        type: string
 
 permissions:
   contents: read
@@ -73,4 +102,5 @@ jobs:
             <p><strong>Company:</strong> ${{ github.event.inputs.company }}</p>
             <p><strong>Role:</strong> ${{ github.event.inputs.role }}</p>
             <p><strong>Stage:</strong> ${{ github.event.inputs.stage }}</p>
+            <p><strong>Revenue:</strong> ${{ github.event.inputs.revenue }}</p>
             <p><strong>Message:</strong> ${{ github.event.inputs.message }}</p> 
