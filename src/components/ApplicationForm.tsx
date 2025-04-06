@@ -23,19 +23,9 @@ const ApplicationForm = () => {
     setError('');
 
     try {
-      // For testing purposes, we'll redirect to the form handler
-      // In a production environment, you would use a serverless function or API endpoint
+      // For testing purposes, we'll simulate a successful submission
+      console.log('Form data submitted:', formData);
       
-      // Create a URL with the form data as query parameters
-      const queryParams = new URLSearchParams();
-      Object.entries(formData).forEach(([key, value]) => {
-        if (value) queryParams.append(key, value);
-      });
-      
-      // Redirect to the form handler
-      window.location.href = `/form-handler.html?${queryParams.toString()}`;
-      
-      // Note: The code below won't execute due to the redirect
       // Store the submission in localStorage (for demo purposes)
       const submissions = JSON.parse(localStorage.getItem('applications') || '[]');
       submissions.push({
