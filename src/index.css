@@ -53,7 +53,7 @@
   input[type="tel"],
   textarea,
   select {
-    @apply bg-bg-lighter border border-border-gray text-text-light rounded-lg px-4 py-2
+    @apply bg-bg-darker border border-border-gray text-text-light rounded-lg px-4 py-2
            focus:border-accent focus:ring-1 focus:ring-accent focus:outline-none
            placeholder-text-muted;
   }
