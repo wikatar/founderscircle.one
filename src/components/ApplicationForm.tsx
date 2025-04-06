@@ -23,16 +23,22 @@ const ApplicationForm = () => {
     setError('');
 
     try {
-      // For testing purposes, we'll simulate a successful submission
-      console.log('Form data submitted:', formData);
-      
-      // Store the submission in localStorage (for demo purposes)
-      const submissions = JSON.parse(localStorage.getItem('applications') || '[]');
-      submissions.push({
-        ...formData,
-        submittedAt: new Date().toISOString()
+      const response = await fetch('https://api.github.com/repos/wikatar/FoundersCircle.one/dispatches', {
+        method: 'POST',
+        headers: {
+          'Accept': 'application/vnd.github.v3+json',
+          'Authorization': `token ${process.env.FORM_TOKEN}`,
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          event_type: 'form_submission',
+          client_payload: formData
+        })
       });
-      localStorage.setItem('applications', JSON.stringify(submissions));
+
+      if (!response.ok) {
+        throw new Error('Failed to submit form');
+      }
 
       // Redirect to thank you page
       navigate('/thank-you');

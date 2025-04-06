@@ -1,0 +1,29 @@
+name: Form Submission Handler
+
+on:
+  repository_dispatch:
+    types: [form_submission]
+
+jobs:
+  handle-form:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Send email notification
+        uses: dawidd6/action-send-mail@v3
+        with:
+          server_address: smtp.gmail.com
+          server_port: 465
+          username: ${{ secrets.EMAIL_USERNAME }}
+          password: ${{ secrets.EMAIL_PASSWORD }}
+          subject: New Application Submission
+          to: ${{ secrets.NOTIFICATION_EMAIL }}
+          from: ${{ secrets.EMAIL_USERNAME }}
+          html_body: |
+            <h2>New Application Submission</h2>
+            <p><strong>Name:</strong> ${{ github.event.client_payload.name }}</p>
+            <p><strong>Email:</strong> ${{ github.event.client_payload.email }}</p>
+            <p><strong>Company:</strong> ${{ github.event.client_payload.company }}</p>
+            <p><strong>Role:</strong> ${{ github.event.client_payload.role }}</p>
+            <p><strong>Stage:</strong> ${{ github.event.client_payload.stage }}</p>
+            <p><strong>Revenue:</strong> ${{ github.event.client_payload.revenue }}</p>
+            <p><strong>Message:</strong> ${{ github.event.client_payload.message }}</p> 

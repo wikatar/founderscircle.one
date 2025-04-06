@@ -62,6 +62,11 @@ jobs:
       - name: Build
         run: npm run build
       
+      - name: Create 404.html for client-side routing
+        run: |
+          cp dist/index.html dist/404.html
+          sed -i 's/<base href="\/">/<base href="\/founderscircle.one\/">/g' dist/404.html
+      
       - name: Setup Pages
         uses: actions/configure-pages@v4
       
