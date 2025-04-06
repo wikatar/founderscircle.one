@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { HashRouter, Routes, Route } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import Navbar from './components/Navbar';
@@ -25,7 +25,7 @@ const App = () => {
   }, []);
 
   return (
-    <BrowserRouter>
+    <HashRouter>
       <div className="min-h-screen bg-bg-darker text-white">
         <Navbar isScrolled={isScrolled} />
         <Routes>
@@ -50,7 +50,7 @@ const App = () => {
           <Route path="/thank-you" element={<ThankYou />} />
         </Routes>
       </div>
-    </BrowserRouter>
+    </HashRouter>
   );
 };
 
