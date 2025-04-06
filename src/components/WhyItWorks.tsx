@@ -6,17 +6,17 @@ const WhyItWorks = () => {
     {
       icon: MagnifyingGlassIcon,
       title: 'Elite Feedback',
-      description: 'Top-tier peers who push your limits.',
+      description: 'Top-tier peers who push your limits and challenge your assumptions.',
     },
     {
       icon: ClipboardDocumentIcon,
       title: 'Structured Audits',
-      description: 'Weekly reviews to keep you sharp.',
+      description: 'Weekly reviews with actionable insights to keep you sharp and focused.',
     },
     {
       icon: UserGroupIcon,
       title: 'Mutual Impact',
-      description: 'Give and get strategic insight.',
+      description: 'Give and get strategic insight from founders at your level.',
     },
   ];
 
@@ -41,23 +41,11 @@ const WhyItWorks = () => {
   };
 
   return (
-    <section id="why-it-works" className="section bg-white relative overflow-hidden">
-      {/* Wave transition */}
-      <div className="absolute top-0 left-0 w-full">
-        <svg
-          viewBox="0 0 1440 100"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-          className="w-full"
-        >
-          <path
-            d="M0 0L60 10C120 20 240 40 360 46.7C480 53 600 47 720 43.3C840 40 960 40 1080 43.3C1200 47 1320 53 1380 56.7L1440 60V100H1380C1320 100 1200 100 1080 100C960 100 840 100 720 100C600 100 480 100 360 100C240 100 120 100 60 100H0V0Z"
-            fill="#F5F6F5"
-          />
-        </svg>
-      </div>
+    <section id="why-it-works" className="section bg-bg-darker relative overflow-hidden">
+      {/* Simple gradient background */}
+      <div className="absolute inset-0 bg-gradient-to-b from-bg-darker via-bg-dark to-bg-darker"></div>
 
-      <div className="container">
+      <div className="container relative z-10 py-20">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -65,9 +53,12 @@ const WhyItWorks = () => {
           transition={{ duration: 0.6 }}
           className="text-center mb-16"
         >
-          <h2 className="text-h2-mobile md:text-h2-desktop text-navy mb-4">
+          <h2 className="text-h2-mobile md:text-h2-desktop text-accent mb-4 font-bold">
             Why a Selective Board Matters
           </h2>
+          <p className="text-text-light max-w-2xl mx-auto text-lg">
+            Our rigorous selection process ensures you're surrounded by founders who will truly elevate your business.
+          </p>
         </motion.div>
 
         <motion.div
@@ -81,13 +72,13 @@ const WhyItWorks = () => {
             <motion.div
               key={index}
               variants={cardVariants}
-              className="bg-white rounded-xl p-6 shadow-lg border-2 border-light-gray hover:border-teal transition-colors duration-300"
+              className="bg-bg-dark/50 backdrop-blur-sm rounded-xl p-8 shadow-lg border border-border-gray/30 hover:border-accent transition-all duration-300 hover:shadow-xl hover:-translate-y-1"
             >
-              <div className="mb-4">
-                <card.icon className="h-12 w-12 text-teal" />
+              <div className="mb-6 bg-bg-darker/50 p-3 rounded-lg inline-block">
+                <card.icon className="h-10 w-10 text-accent" />
               </div>
-              <h3 className="text-xl font-bold text-navy mb-2">{card.title}</h3>
-              <p className="text-gray-600">{card.description}</p>
+              <h3 className="text-xl font-bold text-accent mb-3">{card.title}</h3>
+              <p className="text-text-light leading-relaxed">{card.description}</p>
             </motion.div>
           ))}
         </motion.div>
