@@ -23,7 +23,7 @@ const ApplicationForm = () => {
   };
 
   return (
-    <section className="section bg-bg-darker relative overflow-hidden">
+    <section id="apply" className="section bg-bg-darker relative overflow-hidden">
       <div className="container">
         <motion.div
           initial={{ opacity: 0, y: 20 }}

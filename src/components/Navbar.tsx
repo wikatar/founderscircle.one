@@ -37,9 +37,9 @@ const Navbar = ({ isScrolled }: NavbarProps) => {
                 {item.name}
               </a>
             ))}
-            <button className="btn-primary">
+            <a href="#apply" className="btn-primary">
               Apply Now
-            </button>
+            </a>
           </div>
 
           {/* Mobile menu button */}
@@ -71,9 +71,9 @@ const Navbar = ({ isScrolled }: NavbarProps) => {
               {item.name}
             </a>
           ))}
-          <button className="w-full btn-primary mt-4">
+          <a href="#apply" className="w-full btn-primary mt-4 text-center">
             Apply Now
-          </button>
+          </a>
         </div>
       </div>
     </nav>
