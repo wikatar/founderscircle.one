@@ -25,6 +25,11 @@ const steps = [
     title: "Final Review",
     description: "The board reviews your application and makes a final decision on your membership.",
     icon: "✨"
+  },
+  {
+    title: "Onboarding",
+    description: "Begin your journey with a comprehensive onboarding process and meet your new peer board.",
+    icon: "🚀"
   }
 ];
 
