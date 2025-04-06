@@ -10,6 +10,7 @@ const ApplicationForm = () => {
     company: '',
     role: '',
     stage: '',
+    linkedin: '',
     message: ''
   });
 
@@ -22,10 +23,19 @@ const ApplicationForm = () => {
     setError('');
 
     try {
-      // Here you would typically send the data to your backend
-      // For now, we'll simulate an API call
-      await new Promise(resolve => setTimeout(resolve, 1000));
-      
+      // Send the form data to our Netlify function
+      const response = await fetch('/.netlify/functions/submit-form', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to submit form');
+      }
+
       // Store the submission in localStorage (for demo purposes)
       const submissions = JSON.parse(localStorage.getItem('applications') || '[]');
       submissions.push({
@@ -149,26 +159,44 @@ const ApplicationForm = () => {
             </div>
           </div>
 
-          <div className="mb-6">
-            <label htmlFor="stage" className="text-text-light font-medium mb-2 block">
-              Company Stage
-            </label>
-            <select
-              id="stage"
-              name="stage"
-              value={formData.stage}
-              onChange={handleChange}
-              required
-              className="w-full"
-              disabled={isSubmitting}
-            >
-              <option value="">Select company stage</option>
-              <option value="idea">Idea Stage</option>
-              <option value="mvp">MVP</option>
-              <option value="early">Early Traction</option>
-              <option value="growth">Growth</option>
-              <option value="scale">Scale</option>
-            </select>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+            <div>
+              <label htmlFor="stage" className="text-text-light font-medium mb-2 block">
+                Company Stage
+              </label>
+              <select
+                id="stage"
+                name="stage"
+                value={formData.stage}
+                onChange={handleChange}
+                required
+                className="w-full"
+                disabled={isSubmitting}
+              >
+                <option value="">Select company stage</option>
+                <option value="idea">Idea Stage</option>
+                <option value="mvp">MVP</option>
+                <option value="early">Early Traction</option>
+                <option value="growth">Growth</option>
+                <option value="scale">Scale</option>
+              </select>
+            </div>
+            <div>
+              <label htmlFor="linkedin" className="text-text-light font-medium mb-2 block">
+                LinkedIn Profile
+              </label>
+              <input
+                type="url"
+                id="linkedin"
+                name="linkedin"
+                value={formData.linkedin}
+                onChange={handleChange}
+                required
+                className="w-full"
+                placeholder="Enter your LinkedIn URL"
+                disabled={isSubmitting}
+              />
+            </div>
           </div>
 
           <div className="mb-6">
