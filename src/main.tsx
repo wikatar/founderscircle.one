@@ -9,7 +9,7 @@ import './index.css'
   if (redirect) {
     sessionStorage.removeItem('redirect');
     if (redirect !== location.href) {
-      history.replaceState(null, null, redirect);
+      history.replaceState('', '', redirect);
     }
   }
 })();
