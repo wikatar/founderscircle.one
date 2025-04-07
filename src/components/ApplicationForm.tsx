@@ -23,10 +23,8 @@ const ApplicationForm = () => {
     setError('');
 
     try {
-      // Use the Vercel API endpoint
-      const apiUrl = import.meta.env.PROD 
-        ? '/api/submit-form'  // Production URL (relative to the domain)
-        : 'http://localhost:3000/api/submit-form'; // Development URL
+      // Use the Vercel API endpoint - replace with your actual Vercel URL after deployment
+      const apiUrl = 'https://founderscircle-api.vercel.app/api/submit-form';
       
       const response = await fetch(apiUrl, {
         method: 'POST',
