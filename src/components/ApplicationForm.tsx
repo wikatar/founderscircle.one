@@ -23,12 +23,12 @@ const ApplicationForm = () => {
     setError('');
 
     try {
-      // Use a relative URL for the API endpoint
-      const apiUrl = '/api/submit';
+      // Use Formspree for form submission
+      const formspreeUrl = 'https://formspree.io/f/your-form-id';
       
       console.log('Submitting form data:', formData);
       
-      const response = await fetch(apiUrl, {
+      const response = await fetch(formspreeUrl, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -39,19 +39,8 @@ const ApplicationForm = () => {
 
       console.log('Response status:', response.status);
       
-      // Try to parse the response as JSON, but handle non-JSON responses
-      let data;
-      try {
-        const text = await response.text();
-        console.log('Response text:', text);
-        data = text ? JSON.parse(text) : {};
-      } catch (parseError) {
-        console.error('Error parsing response:', parseError);
-        data = { error: 'Invalid response format' };
-      }
-
       if (!response.ok) {
-        throw new Error(data.error || `Server error: ${response.status}`);
+        throw new Error(`Server error: ${response.status}`);
       }
 
       // Redirect to thank you page
