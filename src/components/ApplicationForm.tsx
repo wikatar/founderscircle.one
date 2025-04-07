@@ -24,7 +24,7 @@ const ApplicationForm = () => {
 
     try {
       // Use the Vercel API endpoint
-      const apiUrl = 'https://founderscircleone.vercel.app/api/send-email';
+      const apiUrl = 'https://founderscircleone.vercel.app/api/submit';
       
       console.log('Submitting form data:', formData);
       
