@@ -1,6 +1,8 @@
-import { useState } from 'react';
+import { useState, FormEvent, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
+import emailjs from '@emailjs/browser';
+import { EMAILJS_CONFIG } from '../config/emailjs';
 
 const ApplicationForm = () => {
   const navigate = useNavigate();
@@ -17,48 +19,34 @@ const ApplicationForm = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState('');
 
+  // Initialize EmailJS
+  useEffect(() => {
+    emailjs.init(EMAILJS_CONFIG.PUBLIC_KEY);
+  }, []);
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
     setError('');
 
     try {
-      // Use a relative URL for the API endpoint
-      const apiUrl = '/api/submit';
+      // Use EmailJS for form submission
+      const result = await emailjs.send(
+        EMAILJS_CONFIG.SERVICE_ID,
+        EMAILJS_CONFIG.TEMPLATE_ID,
+        {
+          from_name: formData.name,
+          from_email: formData.email,
+          company: formData.company,
+          role: formData.role,
+          stage: formData.stage,
+          revenue: formData.revenue,
+          message: formData.message,
+        }
+      );
+
+      console.log('Email sent successfully:', result);
       
-      console.log('Submitting form data:', formData);
-      
-      const response = await fetch(apiUrl, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Accept': 'application/json'
-        },
-        body: JSON.stringify(formData)
-      });
-
-      console.log('Response status:', response.status);
-      
-      // Try to parse the response as JSON, but handle non-JSON responses
-      let data;
-      try {
-        const text = await response.text();
-        console.log('Response text:', text);
-        data = text ? JSON.parse(text) : {};
-      } catch (parseError) {
-        console.error('Error parsing response:', parseError);
-        data = { error: 'Invalid response format' };
-      }
-
-      if (!response.ok) {
-        throw new Error(data.error || `Server error: ${response.status}`);
-      }
-
-      // Show success message with issue URL if available
-      if (data.issueUrl) {
-        console.log('Application submitted successfully. Issue URL:', data.issueUrl);
-      }
-
       // Redirect to thank you page
       navigate('/thank-you');
     } catch (err) {
