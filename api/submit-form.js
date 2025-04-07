@@ -1,5 +1,5 @@
-// This file will be deployed as a serverless function
-export default async function handler(req, res) {
+// Simple API endpoint for form submission
+export default function handler(req, res) {
   // Set CORS headers
   res.setHeader('Access-Control-Allow-Credentials', true);
   res.setHeader('Access-Control-Allow-Origin', 'https://founderscircle.one');
@@ -23,39 +23,13 @@ export default async function handler(req, res) {
   try {
     const formData = req.body;
     
-    // Validate required fields
-    const requiredFields = ['name', 'email', 'company', 'role', 'stage', 'revenue', 'message'];
-    const missingFields = requiredFields.filter(field => !formData[field]);
+    // Log the form data for debugging
+    console.log('Form data received:', formData);
     
-    if (missingFields.length > 0) {
-      return res.status(400).json({ 
-        error: `Missing required fields: ${missingFields.join(', ')}` 
-      });
-    }
-
-    // Call GitHub API to trigger the workflow
-    const response = await fetch(`https://api.github.com/repos/wikatar/FoundersCircle.one/dispatches`, {
-      method: 'POST',
-      headers: {
-        'Accept': 'application/vnd.github.v3+json',
-        'Authorization': `Bearer ${process.env.GITHUB_TOKEN}`,
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        event_type: 'form_submission',
-        client_payload: formData
-      })
-    });
-
-    if (!response.ok) {
-      const errorData = await response.json();
-      console.error('GitHub API error:', errorData);
-      throw new Error(errorData.message || 'Failed to submit form');
-    }
-
     // Return success response
     return res.status(200).json({ 
-      message: 'Application submitted successfully' 
+      message: 'Application submitted successfully',
+      data: formData
     });
   } catch (error) {
     console.error('Error processing form submission:', error);
