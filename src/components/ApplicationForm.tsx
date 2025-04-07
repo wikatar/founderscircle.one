@@ -23,8 +23,12 @@ const ApplicationForm = () => {
     setError('');
 
     try {
-      // Use the serverless function to handle the GitHub API call
-      const response = await fetch('/api/submit-form', {
+      // Use the Vercel API endpoint
+      const apiUrl = import.meta.env.PROD 
+        ? '/api/submit-form'  // Production URL (relative to the domain)
+        : 'http://localhost:3000/api/submit-form'; // Development URL
+      
+      const response = await fetch(apiUrl, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
