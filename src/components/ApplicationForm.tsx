@@ -23,8 +23,8 @@ const ApplicationForm = () => {
     setError('');
 
     try {
-      // Use the Vercel API endpoint
-      const apiUrl = 'https://founderscircleone.vercel.app/api/submit';
+      // Use a relative URL for the API endpoint
+      const apiUrl = '/api/submit';
       
       console.log('Submitting form data:', formData);
       
