@@ -2,7 +2,7 @@
 export default function handler(req, res) {
   // Set CORS headers
   res.setHeader('Access-Control-Allow-Credentials', true);
-  res.setHeader('Access-Control-Allow-Origin', 'https://founderscircle.one');
+  res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', 'GET,OPTIONS,PATCH,DELETE,POST,PUT');
   res.setHeader(
     'Access-Control-Allow-Headers',
@@ -21,15 +21,19 @@ export default function handler(req, res) {
   }
 
   try {
-    const formData = req.body;
+    // Log the request method and body for debugging
+    console.log('Request method:', req.method);
+    console.log('Request body:', req.body);
     
-    // Log the form data for debugging
-    console.log('Form data received:', formData);
+    // Validate that we have a body
+    if (!req.body) {
+      return res.status(400).json({ error: 'Request body is required' });
+    }
     
     // Return success response
     return res.status(200).json({ 
       message: 'Application submitted successfully',
-      data: formData
+      data: req.body
     });
   } catch (error) {
     console.error('Error processing form submission:', error);
