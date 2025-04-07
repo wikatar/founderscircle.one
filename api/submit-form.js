@@ -1,5 +1,5 @@
-// Simple API endpoint for form submission
-export default function handler(req, res) {
+// API endpoint for form submission that sends an email notification
+export default async function handler(req, res) {
   // Set CORS headers
   res.setHeader('Access-Control-Allow-Credentials', true);
   res.setHeader('Access-Control-Allow-Origin', '*');
@@ -28,6 +28,66 @@ export default function handler(req, res) {
     // Validate that we have a body
     if (!req.body) {
       return res.status(400).json({ error: 'Request body is required' });
+    }
+
+    // Get the GitHub token from environment variables
+    const githubToken = process.env.GITHUB_TOKEN;
+    
+    if (!githubToken) {
+      console.error('GitHub token is not set');
+      return res.status(500).json({ error: 'Server configuration error' });
+    }
+
+    // Create an issue in the repository to send an email notification
+    const issueData = {
+      title: `New Application: ${req.body.firstName} ${req.body.lastName}`,
+      body: `
+## New Application Received
+
+**Name:** ${req.body.firstName} ${req.body.lastName}
+**Email:** ${req.body.email}
+**Phone:** ${req.body.phone}
+**Company:** ${req.body.company}
+**Role:** ${req.body.role}
+**Company Size:** ${req.body.companySize}
+**Industry:** ${req.body.industry}
+**Funding Stage:** ${req.body.fundingStage}
+**Monthly Revenue:** ${req.body.monthlyRevenue}
+**Monthly Expenses:** ${req.body.monthlyExpenses}
+**Monthly Burn Rate:** ${req.body.monthlyBurnRate}
+**Runway:** ${req.body.runway}
+**Monthly Growth Rate:** ${req.body.monthlyGrowthRate}
+**Monthly Active Users:** ${req.body.monthlyActiveUsers}
+**Monthly Recurring Revenue:** ${req.body.monthlyRecurringRevenue}
+**Annual Recurring Revenue:** ${req.body.annualRecurringRevenue}
+**Customer Acquisition Cost:** ${req.body.customerAcquisitionCost}
+**Lifetime Value:** ${req.body.lifetimeValue}
+**Churn Rate:** ${req.body.churnRate}
+**Net Revenue Retention:** ${req.body.netRevenueRetention}
+**Gross Margin:** ${req.body.grossMargin}
+**Operating Margin:** ${req.body.operatingMargin}
+**Cash Flow:** ${req.body.cashFlow}
+**Profitability:** ${req.body.profitability}
+**Funding Needs:** ${req.body.fundingNeeds}
+**Use of Funds:** ${req.body.useOfFunds}
+      `
+    };
+
+    // Send the issue to GitHub
+    const response = await fetch('https://api.github.com/repos/wikatar/founderscircle.one/issues', {
+      method: 'POST',
+      headers: {
+        'Authorization': `token ${githubToken}`,
+        'Content-Type': 'application/json',
+        'Accept': 'application/vnd.github.v3+json'
+      },
+      body: JSON.stringify(issueData)
+    });
+
+    if (!response.ok) {
+      const errorData = await response.json();
+      console.error('Error creating GitHub issue:', errorData);
+      return res.status(500).json({ error: 'Failed to send email notification' });
     }
     
     // Return success response
