@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
 
@@ -17,12 +17,23 @@ const ApplicationForm = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState('');
 
+  // Debug environment variable
+  useEffect(() => {
+    console.log('Token available:', !!import.meta.env.VITE_FORM_TOKEN);
+    // Don't log the actual token for security reasons
+  }, []);
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
     setError('');
 
     try {
+      // Check if token is available
+      if (!import.meta.env.VITE_FORM_TOKEN) {
+        throw new Error('Authentication token is missing. Please check your environment variables.');
+      }
+
       // Direct GitHub API call with hardcoded repository name
       const response = await fetch('https://api.github.com/repos/wikatar/FoundersCircle.one/dispatches', {
         method: 'POST',
