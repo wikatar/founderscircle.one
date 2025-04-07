@@ -24,7 +24,7 @@ const ApplicationForm = () => {
 
     try {
       // Use the new API endpoint
-      const apiUrl = '/api/form';
+      const apiUrl = 'https://founderscircleone.vercel.app/api/submit';
       
       console.log('Submitting form data:', formData);
       
