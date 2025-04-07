@@ -18,8 +18,16 @@ export default async function handler(req, res) {
       });
     }
 
+    // Ensure repository name is properly formatted
+    const repository = process.env.GITHUB_REPOSITORY || '';
+    if (!repository || !repository.includes('/')) {
+      return res.status(400).json({ 
+        error: 'Invalid repository format. Expected format: owner/repo' 
+      });
+    }
+
     // Call GitHub API to trigger the workflow
-    const response = await fetch(`https://api.github.com/repos/${process.env.GITHUB_REPOSITORY}/dispatches`, {
+    const response = await fetch(`https://api.github.com/repos/${repository}/dispatches`, {
       method: 'POST',
       headers: {
         'Accept': 'application/vnd.github.v3+json',
@@ -34,6 +42,7 @@ export default async function handler(req, res) {
 
     if (!response.ok) {
       const errorData = await response.json();
+      console.error('GitHub API error:', errorData);
       throw new Error(errorData.message || 'Failed to submit form');
     }
 
@@ -44,7 +53,7 @@ export default async function handler(req, res) {
   } catch (error) {
     console.error('Error processing form submission:', error);
     return res.status(500).json({ 
-      error: 'Error processing your application' 
+      error: 'Error processing your application: ' + error.message
     });
   }
 } 

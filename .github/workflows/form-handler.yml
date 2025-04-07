@@ -8,6 +8,17 @@ jobs:
   handle-form:
     runs-on: ubuntu-latest
     steps:
+      - name: Check payload
+        run: |
+          echo "Received form submission with payload:"
+          echo "Name: ${{ github.event.client_payload.name }}"
+          echo "Email: ${{ github.event.client_payload.email }}"
+          echo "Company: ${{ github.event.client_payload.company }}"
+          echo "Role: ${{ github.event.client_payload.role }}"
+          echo "Stage: ${{ github.event.client_payload.stage }}"
+          echo "Revenue: ${{ github.event.client_payload.revenue }}"
+          echo "Message: ${{ github.event.client_payload.message }}"
+      
       - name: Send email notification
         uses: dawidd6/action-send-mail@v3
         with:
