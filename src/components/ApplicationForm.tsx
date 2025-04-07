@@ -23,8 +23,8 @@ const ApplicationForm = () => {
     setError('');
 
     try {
-      // Use the new API endpoint
-      const apiUrl = 'https://founderscircleone.vercel.app/api/submit-form';
+      // Use a simple form submission that sends the data directly to your email
+      const apiUrl = 'https://formspree.io/f/your-form-id';
       
       console.log('Submitting form data:', formData);
       
