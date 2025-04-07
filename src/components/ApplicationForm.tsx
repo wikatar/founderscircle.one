@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
 
@@ -17,41 +17,25 @@ const ApplicationForm = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState('');
 
-  // Debug environment variable
-  useEffect(() => {
-    console.log('Token available:', !!import.meta.env.VITE_FORM_TOKEN);
-    // Don't log the actual token for security reasons
-  }, []);
-
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
     setError('');
 
     try {
-      // Check if token is available
-      if (!import.meta.env.VITE_FORM_TOKEN) {
-        throw new Error('Authentication token is missing. Please check your environment variables.');
-      }
-
-      // Direct GitHub API call with hardcoded repository name
-      const response = await fetch('https://api.github.com/repos/wikatar/FoundersCircle.one/dispatches', {
+      // Use the serverless function to handle the GitHub API call
+      const response = await fetch('/api/submit-form', {
         method: 'POST',
         headers: {
-          'Accept': 'application/vnd.github.v3+json',
-          'Authorization': `Bearer ${import.meta.env.VITE_FORM_TOKEN}`,
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({
-          event_type: 'form_submission',
-          client_payload: formData
-        })
+        body: JSON.stringify(formData)
       });
 
+      const data = await response.json();
+
       if (!response.ok) {
-        const errorData = await response.json();
-        console.error('GitHub API error:', errorData);
-        throw new Error(errorData.message || 'Failed to submit form');
+        throw new Error(data.error || 'Failed to submit form');
       }
 
       // Redirect to thank you page
