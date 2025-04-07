@@ -24,7 +24,7 @@ const ApplicationForm = () => {
 
     try {
       // Use the Vercel API endpoint - replace with your actual Vercel URL after deployment
-      const apiUrl = 'https://founderscircle-api.vercel.app/api/submit-form';
+      const apiUrl = 'https://founderscircleone.vercel.app';
       
       const response = await fetch(apiUrl, {
         method: 'POST',
