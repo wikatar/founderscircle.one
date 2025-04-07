@@ -23,8 +23,8 @@ const ApplicationForm = () => {
     setError('');
 
     try {
-      // Use a simple form submission that sends the data directly to your email
-      const apiUrl = 'https://formspree.io/f/your-form-id';
+      // Use the correct API endpoint URL
+      const apiUrl = '/api/submit-form';
       
       console.log('Submitting form data:', formData);
       
