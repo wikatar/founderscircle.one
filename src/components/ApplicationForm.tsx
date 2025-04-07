@@ -23,21 +23,35 @@ const ApplicationForm = () => {
     setError('');
 
     try {
-      // Use a relative URL for the API endpoint
-      const apiUrl = '/api/submit-form';
+      // Use the new API endpoint
+      const apiUrl = '/api/form';
+      
+      console.log('Submitting form data:', formData);
       
       const response = await fetch(apiUrl, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
+          'Accept': 'application/json'
         },
         body: JSON.stringify(formData)
       });
 
-      const data = await response.json();
+      console.log('Response status:', response.status);
+      
+      // Try to parse the response as JSON, but handle non-JSON responses
+      let data;
+      try {
+        const text = await response.text();
+        console.log('Response text:', text);
+        data = text ? JSON.parse(text) : {};
+      } catch (parseError) {
+        console.error('Error parsing response:', parseError);
+        data = { error: 'Invalid response format' };
+      }
 
       if (!response.ok) {
-        throw new Error(data.error || 'Failed to submit form');
+        throw new Error(data.error || `Server error: ${response.status}`);
       }
 
       // Redirect to thank you page
