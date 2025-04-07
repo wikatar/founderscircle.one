@@ -23,8 +23,8 @@ const ApplicationForm = () => {
     setError('');
 
     try {
-      // Use the new API endpoint URL
-      const apiUrl = '/api/form-submit';
+      // Use the simplified API endpoint URL
+      const apiUrl = '/api/submit';
       
       console.log('Submitting form data:', formData);
       
