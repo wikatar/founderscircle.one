@@ -23,7 +23,12 @@ const ApplicationForm = () => {
     setError('');
 
     try {
-      // Use Formspree for form submission
+      // IMPORTANT: Replace 'your-form-id' with your actual Formspree form ID
+      // To get a form ID:
+      // 1. Go to https://formspree.io/
+      // 2. Sign up or log in
+      // 3. Create a new form
+      // 4. Copy the form ID from the form URL (it looks like: https://formspree.io/f/abc123)
       const formspreeUrl = 'https://formspree.io/f/your-form-id';
       
       console.log('Submitting form data:', formData);

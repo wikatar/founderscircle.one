@@ -62,10 +62,28 @@
       background-color: #d1fae5;
       border-radius: 4px;
     }
+    .instructions {
+      background-color: #f3f4f6;
+      padding: 15px;
+      border-radius: 4px;
+      margin-bottom: 20px;
+      border-left: 4px solid #2563eb;
+    }
   </style>
 </head>
 <body>
   <h1>Apply for Membership</h1>
+  
+  <div class="instructions">
+    <p><strong>IMPORTANT:</strong> Before using this form, you need to:</p>
+    <ol>
+      <li>Go to <a href="https://formspree.io/" target="_blank">https://formspree.io/</a></li>
+      <li>Sign up or log in</li>
+      <li>Create a new form</li>
+      <li>Copy the form ID from the form URL (it looks like: https://formspree.io/f/abc123)</li>
+      <li>Replace "your-form-id" in the form action below with your actual form ID</li>
+    </ol>
+  </div>
   
   <form action="https://formspree.io/f/your-form-id" method="POST">
     <div class="form-group">
