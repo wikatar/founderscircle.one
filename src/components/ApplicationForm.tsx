@@ -23,19 +23,24 @@ const ApplicationForm = () => {
     setError('');
 
     try {
-      // Use a serverless function to handle the GitHub API call
-      const response = await fetch('/api/submit-form', {
+      // Direct GitHub API call with hardcoded repository name
+      const response = await fetch('https://api.github.com/repos/wikatar/FoundersCircle.one/dispatches', {
         method: 'POST',
         headers: {
+          'Accept': 'application/vnd.github.v3+json',
+          'Authorization': `Bearer ${import.meta.env.VITE_FORM_TOKEN}`,
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(formData)
+        body: JSON.stringify({
+          event_type: 'form_submission',
+          client_payload: formData
+        })
       });
 
-      const data = await response.json();
-
       if (!response.ok) {
-        throw new Error(data.error || 'Failed to submit form');
+        const errorData = await response.json();
+        console.error('GitHub API error:', errorData);
+        throw new Error(errorData.message || 'Failed to submit form');
       }
 
       // Redirect to thank you page
