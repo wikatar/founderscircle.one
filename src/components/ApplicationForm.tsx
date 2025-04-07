@@ -23,8 +23,8 @@ const ApplicationForm = () => {
     setError('');
 
     try {
-      // Use the API endpoint with the correct URL
-      const apiUrl = 'https://founderscircleone.vercel.app/api/submit';
+      // Use a relative URL for the API endpoint
+      const apiUrl = '/api/submit';
       
       console.log('Submitting form data:', formData);
       
@@ -52,6 +52,11 @@ const ApplicationForm = () => {
 
       if (!response.ok) {
         throw new Error(data.error || `Server error: ${response.status}`);
+      }
+
+      // Show success message with issue URL if available
+      if (data.issueUrl) {
+        console.log('Application submitted successfully. Issue URL:', data.issueUrl);
       }
 
       // Redirect to thank you page
