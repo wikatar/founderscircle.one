@@ -3,21 +3,21 @@ import { motion } from 'framer-motion';
 const testimonials = [
   {
     quote: "The Founder's Audit has been instrumental in my growth as a founder. The peer support and insights are invaluable.",
-    author: "Sarah Chen",
-    role: "CEO, TechFlow",
-    image: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
+    author: "Ricardo",
+    role: "Founder, Strong Partner",
+    avatar: "👨‍💼"
   },
   {
     quote: "Being part of this board has transformed how I approach challenges. The collective wisdom here is unmatched.",
-    author: "Michael Rodriguez",
-    role: "Founder, InnovateX",
-    image: "https://images.unsplash.com/photo-1519244703995-f4e0f30006d5?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
+    author: "Finn",
+    role: "Founder, GE Marketing",
+    avatar: "👨‍🚀"
   },
   {
     quote: "The structured approach to problem-solving and the diverse perspectives have helped me make better decisions.",
-    author: "Emily Thompson",
-    role: "CTO, DataFlow",
-    image: "https://images.unsplash.com/photo-1517841905240-472988babdf9?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
+    author: "Wilmer",
+    role: "Founder, The Balthazar Project",
+    avatar: "👨‍💻"
   }
 ];
 
@@ -33,7 +33,7 @@ const Testimonials = () => {
           className="text-center mb-16"
         >
           <h2 className="text-h2-desktop md:text-h2-desktop text-accent mb-4">
-            What Members Say
+            What Our Members Say
           </h2>
           <p className="text-text-light text-lg max-w-2xl mx-auto">
             Hear from founders who have experienced the transformative power of peer boards.
@@ -58,11 +58,9 @@ const Testimonials = () => {
                   <p className="text-text-light text-lg mb-6">{testimonial.quote}</p>
                 </div>
                 <div className="flex items-center">
-                  <img
-                    className="h-12 w-12 rounded-full object-cover"
-                    src={testimonial.image}
-                    alt={testimonial.author}
-                  />
+                  <div className="h-12 w-12 rounded-full bg-accent/10 border-2 border-accent/20 flex items-center justify-center text-2xl animate-pulse">
+                    {testimonial.avatar}
+                  </div>
                   <div className="ml-4">
                     <p className="text-text-light font-medium">{testimonial.author}</p>
                     <p className="text-text-muted">{testimonial.role}</p>
