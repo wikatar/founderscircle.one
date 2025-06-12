@@ -28,7 +28,7 @@ const AppContent = () => {
     <div className="min-h-screen bg-bg-darker text-white">
       <Navbar isScrolled={isScrolled} />
       <Routes>
-        <Route path="/" element={
+        <Route path="*" element={
           <>
             <motion.div
               initial={{ opacity: 0 }}
