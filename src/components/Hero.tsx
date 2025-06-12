@@ -11,7 +11,7 @@ const Hero = () => {
     }, 2000);
 
     return () => clearInterval(interval);
-  }, []);
+  }, [taglines.length]);
 
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden">

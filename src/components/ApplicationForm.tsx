@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
 
@@ -26,8 +26,6 @@ const ApplicationForm = () => {
       // Use Formspree for form submission
       const formspreeUrl = 'https://formspree.io/f/mzzekrlp';
       
-      console.log('Submitting form data:', formData);
-      
       const response = await fetch(formspreeUrl, {
         method: 'POST',
         headers: {
@@ -36,8 +34,6 @@ const ApplicationForm = () => {
         },
         body: JSON.stringify(formData)
       });
-
-      console.log('Response status:', response.status);
       
       if (!response.ok) {
         throw new Error(`Server error: ${response.status}`);

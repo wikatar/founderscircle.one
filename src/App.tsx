@@ -1,4 +1,4 @@
-import { HashRouter, Routes, Route, useLocation } from 'react-router-dom';
+import { HashRouter, Routes, Route } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import Navbar from './components/Navbar';
@@ -14,8 +14,6 @@ import ThankYou from './components/ThankYou';
 
 const AppContent = () => {
   const [isScrolled, setIsScrolled] = useState(false);
-  const location = useLocation();
-  const m = location.pathname;
 
   useEffect(() => {
     const handleScroll = () => {
@@ -30,7 +28,7 @@ const AppContent = () => {
     <div className="min-h-screen bg-bg-darker text-white">
       <Navbar isScrolled={isScrolled} />
       <Routes>
-        <Route path={m === "/" ? "*" : `${m}/*`} element={
+        <Route path="/" element={
           <>
             <motion.div
               initial={{ opacity: 0 }}
