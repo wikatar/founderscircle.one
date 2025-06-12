@@ -26,7 +26,7 @@ const WhyUs = () => {
   ];
 
   return (
-    <section className="section bg-batman relative overflow-hidden">
+    <section id="why-us" className="section bg-batman relative overflow-hidden">
       {/* Arrow pattern background */}
       <div className="absolute inset-0 opacity-5">
         <div className="w-full h-full" style={{

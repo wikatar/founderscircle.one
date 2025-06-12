@@ -223,12 +223,19 @@ const ApplicationForm = () => {
           </div>
 
           <div className="text-center">
-            <button 
-              type="submit" 
-              className="btn-primary"
+            <button
+              type="submit"
+              className="btn-primary w-full flex items-center justify-center"
               disabled={isSubmitting}
             >
-              {isSubmitting ? 'Submitting...' : 'Submit Application'}
+              {isSubmitting ? (
+                <>
+                  <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white mr-2"></div>
+                  Submitting...
+                </>
+              ) : (
+                'Submit Application'
+              )}
             </button>
           </div>
         </motion.form>

@@ -50,9 +50,9 @@ const Hero = () => {
           <a href="#apply" className="btn-primary">
             Apply Now
           </a>
-          <button className="btn-primary bg-transparent">
+          <a href="#why-it-works" className="btn-primary bg-transparent">
             Learn More
-          </button>
+          </a>
         </motion.div>
         
         <motion.p

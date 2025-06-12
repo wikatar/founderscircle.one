@@ -47,6 +47,8 @@ const Navbar = ({ isScrolled }: NavbarProps) => {
             <button
               onClick={() => setIsOpen(!isOpen)}
               className="text-text-gray hover:text-gold transition-colors duration-300"
+              aria-label="Toggle navigation menu"
+              aria-expanded={isOpen}
             >
               {isOpen ? (
                 <XMarkIcon className="h-6 w-6" />
